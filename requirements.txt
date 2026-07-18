@@ -5,5 +5,8 @@ scikit-learn
 setuptools
 pymongo
 certifi
+pymongo
+pymongo[srv]==3.12
+MongoClient
 
 # -e .
