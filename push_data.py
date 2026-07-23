@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 MONGO_DB_URL = os.getenv("MONGO_DB_URL")
-print(f"MongoDB URL: {MONGO_DB_URL}")
 
 import certifi
 ca = certifi.where()
@@ -50,12 +49,21 @@ class NetworkDataExtract():
 
         except Exception as e:
             raise NetworkSecurityException(e, sys)
+
+
+def push_data_to_mongodb(
+    file_path: str = r"Network_Data\phisingData.csv",
+    database: str = "NetworkSecurity",
+    collection: str = "NetworkData",
+):
+    networkobj = NetworkDataExtract()
+    json_records = networkobj.csv_to_json(file_path=file_path)
+    return networkobj.insert_data_to_mongodb(
+        json_records=json_records,
+        database=database,
+        collection=collection,
+    )
         
 if __name__ == "__main__":
-    FILE_PATH = "Network_Data\phisingData.csv"
-    DATABASE = "Network_Security" # This is the name of the database where we want to store the data
-    COLLECTION = "Phishing_Data" # This is the name of the collection where we want to store the data. Collection is like a table in a database.
-    networkobj = NetworkDataExtract()
-    json_records = networkobj.csv_to_json(file_path = FILE_PATH)
-    no_of_records = networkobj.insert_data_to_mongodb(json_records = json_records, database = DATABASE, collection = COLLECTION)
+    no_of_records = push_data_to_mongodb()
     print(f"Number of records inserted: {no_of_records}")
