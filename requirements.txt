@@ -7,6 +7,8 @@ pymongo
 certifi
 pymongo
 pymongo[srv]==3.12
+#dill
+PyYAML
 MongoClient
 
 # -e .
