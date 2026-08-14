@@ -5,6 +5,8 @@ from Network_Security.exception.exception import NetworkSecurityException
 from Network_Security.logging.logger import logging
 from Network_Security.entity.config_entity import DataIngestionConfig,DataValidationConfig,DataTransformationConfig
 from Network_Security.entity.config_entity import TrainingPipelineConfig
+from Network_Security.entity.config_entity import ModelTrainerConfig
+from Network_Security.components.model_trainer import ModelTrainer
 from push_data import push_data_to_mongodb
 import sys
 import os
@@ -32,6 +34,14 @@ if __name__ == "__main__":
         data_transformation_artifact = data_transformation.initiate_data_transformation()
         print(data_transformation_artifact)
         logging.info("Data Transformation Completed.")
+
+        logging.info("Starting model training process...")
+        model_trainer_config = ModelTrainerConfig(training_pipeline_config)
+        model_trainer = ModelTrainer(model_trainer_config, data_transformation_artifact)
+        model_trainer_artifact = model_trainer.initiate_model_trainer()
+
+        logging.info("Model training artifact created")
+
 
 
         try:

@@ -3,11 +3,13 @@ pandas
 numpy
 scikit-learn
 setuptools
-pymongo
+mlflow
 certifi
-pymongo
-pymongo[srv]==3.12
+pymongo==4.17.0
 PyYAML
-MongoClient
+dagshub
+fastapi
+uvicorn
+python-multipart
 
 # -e .
