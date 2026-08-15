@@ -11,7 +11,7 @@
 An end-to-end machine learning system for **phishing and network-intrusion detection**, built around a production-style MLOps pipeline. The system ingests security data from MongoDB, validates and transforms it, trains and benchmarks multiple classifiers, tracks experiments via MLflow/DagsHub, persists artifacts to AWS S3, and serves predictions through a FastAPI application — with the full lifecycle automated via GitHub Actions CI/CD to Amazon ECR and EC2.
 
 <p align="center">
-  <img src="architecture-diagram.png" alt="Network Security architecture and pipeline diagram" width="100%">
+  <img src="Architecture_diagram.png.png" alt="Network Security architecture and pipeline diagram" width="100%">
 </p>
 
 ---
@@ -65,18 +65,14 @@ The diagram above captures both the static component architecture and the runtim
 
 ```mermaid
 flowchart LR
-    A[(MongoDB)] --> B[Data Ingestion]
+    A[MongoDB] --> B[Data Ingestion]
     B --> C[Data Validation]
     C --> D[Data Transformation]
     D --> E[Model Trainer]
-    E --> F[final_model/ artifacts]
-    F --> G[(AWS S3)]
-    E --> H[MLflow + DagsHub]
-    I[FastAPI app] --> J[/train]
-    I --> K[/predict]
-    K --> L[CSV upload]
-    L --> M[Model Inference]
-    M --> N[prediction_output/output.csv]
+    E --> F[final_model/]
+    F --> G[Cloud Sync to AWS S3]
+    G --> H[FastAPI app]
+    H --> I[prediction_output/output.csv]
 ```
 
 ---
