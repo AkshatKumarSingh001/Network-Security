@@ -82,7 +82,7 @@ jobs:
 
             - name: Stop and remove old container
               run: |
-                docker ps -q --filter "name=network-security" | grep -q . && docker stop network-security && docker rm -fv network-security || true
+                docker ps -aq --filter "name=network-security" | grep -q . && docker stop network-security && docker rm -fv network-security || true
 
             - name: Run Docker Image to serve users
               run: |
